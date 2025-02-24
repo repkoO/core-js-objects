@@ -182,17 +182,19 @@ function sellTickets(/* queue */) {
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(width, height) {
-  const rectangle = {
-    width,
-    height,
+class Rectangle {
+  constructor(width, height) {
+    if (typeof width !== 'number' || typeof height !== 'number') {
+      throw new Error('Ширина и высота должны быть числами');
+    }
 
-    getArea() {
-      return this.width * this.heigth;
-    },
-  };
+    this.width = width;
+    this.height = height;
 
-  return rectangle;
+    this.getArea = function getArea() {
+      return this.width * this.height;
+    };
+  }
 }
 
 /**
