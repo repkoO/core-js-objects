@@ -131,8 +131,24 @@ function makeImmutable(obj) {
  *    makeWord({ a: [0, 1], b: [2, 3], c: [4, 5] }) => 'aabbcc'
  *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
  */
-function makeWord(/* lettersObject */) {
-  throw new Error('Not implemented');
+function makeWord(lettersObject) {
+  if (Object.keys(lettersObject).length === 0) {
+    return '';
+  }
+
+  const letterPositions = Object.entries(lettersObject).flatMap(
+    ([letter, positions]) => positions.map((pos) => ({ letter, pos }))
+  );
+
+  const maxPosition = Math.max(...letterPositions.map(({ pos }) => pos));
+
+  const wordArray = new Array(maxPosition + 1).fill('');
+
+  letterPositions.forEach(({ letter, pos }) => {
+    wordArray[pos] = letter;
+  });
+
+  return wordArray.join('');
 }
 
 /**
